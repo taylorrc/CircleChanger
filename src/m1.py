@@ -106,7 +106,7 @@ class CircleChanger(object):
         # self.x = x
         # self.y = y
         self.radius = radius
-
+        self.center = rg.Point(x, y)
         self.distance = 0
 
         self.circle = rg.Circle(rg.Point(x, y), radius)
@@ -382,7 +382,7 @@ class CircleChanger(object):
             :rtype CircleChanger
         """
         ################################################################
-        # TODO: 6.
+        # DONE: 6.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_swallow   function (below).
         #   Third, implement and test this method.
@@ -393,14 +393,16 @@ class CircleChanger(object):
         #   NO CREDIT if you use the distance formula here.
         ################################################################
 
-        # Having trouble figuring out a way to efficiently set the x and y coordinates of the new_circle object
-        #
-        # radius = self.get_distance_from(other_circle_changer.circle.center / 2)
-        # new_colors = self.colors + other_circle_changer.colors
-        #
-        # new_circle = CircleChanger(x, y, radius, 'red', new_colors)
-        #
-        # return new_circle
+        new_center = self.center.halfway_to(other_circle_changer.center)
+        x = new_center.x
+        y = new_center.y
+
+        radius = self.center.get_distance_from(other_circle_changer.center) / 2
+        new_colors = self.colors + other_circle_changer.colors
+
+        new_circle = CircleChanger(x, y, radius, 'red', new_colors)
+
+        return new_circle
 
     def change_color(self, index_of_color):
         """
